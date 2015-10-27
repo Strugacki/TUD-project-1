@@ -6,22 +6,21 @@ public class Client {
 	/**
 	 * Initialization of variables used in Client class
 	 */
-	private long id_product;
-	private String product_name;
-	private String brand_name;
-	private double price;
+	private long id_client;
+	private String first_name;
+	private String second_name;
+	private long phone_number;
 	
 	
 	public Client(){
 		
 	}
 	
-	public Client(long id, String product_name, String brand_name, double price){
+	public Client(String first_name, String second_name, long phone_nuber){
 		super();
-		this.id_product=id;
-		this.product_name=product_name;
-		this.brand_name=brand_name;
-		this.price=price;
+		this.first_name=first_name;
+		this.second_name=second_name;
+		this.phone_number=phone_number;
 	}
 	
 	
