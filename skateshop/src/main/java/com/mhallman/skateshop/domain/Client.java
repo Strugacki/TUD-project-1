@@ -26,7 +26,7 @@ public class Client {
 	 * @param second_name
 	 * @param phone_nuber
 	 */
-	public Client(String first_name, String second_name, long phone_nuber){
+	public Client(String first_name, String second_name, long phone_number){
 		super();
 		this.setFirst_name(first_name);
 		this.setSecond_name(second_name);
