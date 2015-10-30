@@ -32,12 +32,25 @@ public class ClientManagerTest {
 	@Test
 	public void checkDeletingClients(){
 		Client client = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
-		Client addedClient;
+		cm.addClient(client);
 		cm.deleteClients();
 		List<Client> Clients = cm.getAllClients();
 		assertEquals(0,Clients.size());
 	}
 	
+	@Test
+	public void checkGettingAllClients(){
+		cm.deleteClients();
+		Client client = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
+		cm.addClient(client);
+		Client client2 = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
+		cm.addClient(client2);
+		Client client3 = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
+		cm.addClient(client3);
+		List<Client> Clients = cm.getAllClients();
+		assertEquals(3,Clients.size());
+		
+	}
 	
 	
 	
