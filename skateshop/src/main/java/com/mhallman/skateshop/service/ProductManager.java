@@ -14,7 +14,7 @@ public class ProductManager {
 
 	
 	/**
-	 * Initialization of variables used in ClientManager class
+	 * Initialization of variables used in ProductManager class
 	 */
 	private PreparedStatement addProductStmt;
 	private PreparedStatement deleteAllProductsStmt;
