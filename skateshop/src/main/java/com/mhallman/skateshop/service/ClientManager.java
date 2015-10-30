@@ -1,8 +1,13 @@
 package com.mhallman.skateshop.service;
 
+import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.mhallman.skateshop.domain.Client;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,6 +52,64 @@ public class ClientManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void deleteClients(){
+		try {
+			deleteAllClientsStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param client
+	 * @return count
+	 */
+	public int addClient(Client client){
+		int count=0;
+		try {
+			addClientStmt.setString(1, client.getFirst_name());
+			addClientStmt.setString(2, client.getSecond_name());
+			addClientStmt.setLong(3, client.getPhone_number());
+			count=addClientStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;	
+	}
+	
+	/**
+	 * 
+	 * @return Clients
+	 */
+	public List<Client> getAllClients(){
+		ArrayList<Client> Clients = new ArrayList<Client>();
+		
+		try {
+			ResultSet rs = getAllClientsStmt.executeQuery();
+			while(rs.next()){
+				Client client = new Client();
+				client.setFirst_name(rs.getString("first_name"));
+				client.setSecond_name(rs.getString("second_name"));
+				client.setPhone_number(rs.getLong("phone_number"));
+				Clients.add(client);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return Clients;
+		
+		
 	}
 
 	
