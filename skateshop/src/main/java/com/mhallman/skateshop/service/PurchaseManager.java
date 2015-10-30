@@ -42,8 +42,8 @@ public class PurchaseManager {
 			while (rs.next()) {
 				if ("Purchase".equalsIgnoreCase(rs.getString("TABLE_NAME"))) {
 					tablePurchaseExists = true;
+					break;
 				}
-				break;
 			}
 			
 			if (!tablePurchaseExists){

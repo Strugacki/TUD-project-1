@@ -103,6 +103,7 @@ public class ProductManager {
 			ResultSet rs = getAllProductsStmt.executeQuery();
 			while(rs.next()){
 				Product product = new Product();
+				product.setId_product(rs.getLong("id_product"));
 				product.setProduct_name(rs.getString("product_name"));
 				product.setBrand_name(rs.getString("brand_name"));
 				product.setPrice(rs.getDouble("price"));

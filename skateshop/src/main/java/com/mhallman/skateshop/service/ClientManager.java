@@ -99,6 +99,7 @@ public class ClientManager {
 			ResultSet rs = getAllClientsStmt.executeQuery();
 			while(rs.next()){
 				Client client = new Client();
+				client.setId_client(rs.getLong("id_client"));
 				client.setFirst_name(rs.getString("first_name"));
 				client.setSecond_name(rs.getString("second_name"));
 				client.setPhone_number(rs.getLong("phone_number"));

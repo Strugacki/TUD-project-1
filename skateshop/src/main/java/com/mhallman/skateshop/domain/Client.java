@@ -37,7 +37,7 @@ public class Client {
 	 * @return the id_client
 	 */
 	public long getId_client() {
-		return id_client;
+		return this.id_client;
 	}
 
 	/**
