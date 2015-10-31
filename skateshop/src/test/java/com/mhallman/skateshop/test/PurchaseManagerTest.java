@@ -15,7 +15,6 @@ public class PurchaseManagerTest {
 
 	private ClientManager cm = new ClientManager();
 	private PurchaseManager pm = new PurchaseManager();
-	private long ID_CLIENT;
 	private final static String DATE="06-10-1994";
 	private final static String FIRST_NAME="Adam";
 	private final static String SECOND_NAME="Kowalski";
