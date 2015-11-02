@@ -25,6 +25,7 @@ public class dbConnect {
 	}
 	
 	/**
+	 * Method returning Connection 
 	 * @return
 	 */
 	public Connection getConnection(){

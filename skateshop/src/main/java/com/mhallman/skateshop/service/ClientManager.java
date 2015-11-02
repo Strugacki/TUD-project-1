@@ -60,7 +60,7 @@ public class ClientManager {
 	}
 	
 	/**
-	 * 
+	 * Method deleting Clients from Database
 	 */
 	public void deleteClients(){
 		try {
@@ -72,7 +72,7 @@ public class ClientManager {
 	}
 	
 	/**
-	 * 
+	 * Method adding Clients to Database
 	 * @param client
 	 * @return count
 	 */
@@ -91,7 +91,7 @@ public class ClientManager {
 	}
 	
 	/**
-	 * 
+	 * Method deleting specific Client from Database
 	 * @param id_client
 	 */
 	public void deleteClient(long id_client){
@@ -107,7 +107,7 @@ public class ClientManager {
 	}
 	
 	/**
-	 * 
+	 * Method getting all Clients existing in Database
 	 * @return Clients
 	 */
 	public List<Client> getAllClients(){

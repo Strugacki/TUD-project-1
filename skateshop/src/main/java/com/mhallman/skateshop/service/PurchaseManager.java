@@ -71,7 +71,7 @@ public class PurchaseManager {
 	
 	
 	/**
-	 * 
+	 * Method deleting all Purchases from Database
 	 */
 	public void deletePurchases(){
 		try {
@@ -83,7 +83,7 @@ public class PurchaseManager {
 	}
 	
 	/**
-	 * 
+	 * Method deleting Purchases done by specific Client from Database
 	 * @param id_client
 	 */
 	public void deletePurchase(long id_client){
@@ -110,7 +110,7 @@ public class PurchaseManager {
 	}
 	
 	/**
-	 * 
+	 * Method adding Purchase to Database
 	 * @param purchase
 	 * @return
 	 */
@@ -128,7 +128,7 @@ public class PurchaseManager {
 	}
 	
 	/**
-	 * 
+	 * Method getting all Purchases from Database
 	 * @return
 	 */
 	public List<Purchase> getAllPurchases(){
@@ -151,6 +151,11 @@ public class PurchaseManager {
 	}
 	
 	
+	/**
+	 * Method getting all Purchases done by specific Client from Database
+	 * @param id_client
+	 * @return
+	 */
 	public List<Purchase> getAllPurchasesOfClient(long id_client){
 		ArrayList<Purchase> Purchases = new ArrayList<Purchase>();
 		try {

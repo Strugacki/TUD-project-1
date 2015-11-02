@@ -62,7 +62,7 @@ public class ProductManager {
 	
 	
 	/**
-	 * 
+	 * Method deleting all Products form Database
 	 */
 	public void deleteProducts(){
 		try {
@@ -74,7 +74,7 @@ public class ProductManager {
 	}
 	
 	/**
-	 * 
+	 * Method adding Product to Database
 	 * @param product
 	 * @return count
 	 */
@@ -93,7 +93,7 @@ public class ProductManager {
 	}
 	
 	/**
-	 * 
+	 * Method getting all existing Products from Database
 	 * @return Products
 	 */
 	public List<Product> getAllProducts(){

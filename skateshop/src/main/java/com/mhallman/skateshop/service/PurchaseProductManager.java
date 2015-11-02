@@ -5,6 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mhallman.skateshop.domain.ProductPurchase;
+import com.mhallman.skateshop.domain.Purchase;
 
 public class PurchaseProductManager {
 
@@ -59,20 +64,75 @@ public class PurchaseProductManager {
 				statement3.executeUpdate(alterTableProductPurchase2);
 			}
 
-			addProductPurchaseStmt = conn.prepareStatement("INSERT INTO ProductPurchase (id_purchase,id_product,quantity,summary) VALUES (?, ?)");
-			deleteProductPurchaseStmt = conn.prepareStatement("DELETE FROM ProductPurchase WHERE id_client= ?");
-			deleteAllProductPurchasesStmt = conn.prepareStatement("DELETE FROM Purchase");
-			deleteAllProductPurchasesOfProductStmt = conn.prepareStatement("DELETE FROM Purchase WHERE id_client=?");
-			deleteAllProductPurchasesOfPurchaseStmt = conn.prepareStatement("DELETE FROM Purchase WHERE id_client=?");
-			getAllProductPurchasesStmt = conn.prepareStatement("SELECT id_purchase, id_client,date FROM Purchase");
-			getAllProductPurchasesOfProductStmt = conn.prepareStatement("SELECT id_purchase,date FROM Purchase WHERE id_client=?");
-			getAllProductPurchasesOfPurchaseStmt = conn.prepareStatement("SELECT id_purchase,date FROM Purchase WHERE id_client=?");
+			addProductPurchaseStmt = conn.prepareStatement("INSERT INTO ProductPurchase (id_purchase,id_product,quantity,summary) VALUES (?, ?,?,?)");
+			deleteAllProductPurchasesStmt = conn.prepareStatement("DELETE FROM ProductPurchase");
+			deleteAllProductPurchasesOfProductStmt = conn.prepareStatement("DELETE FROM ProductPurchase WHERE id_product=?");
+			deleteAllProductPurchasesOfPurchaseStmt = conn.prepareStatement("DELETE FROM ProductPurchase WHERE id_purchase=?");
+			getAllProductPurchasesStmt = conn.prepareStatement("SELECT id_purchase, id_client,date FROM ProductPurchase");
+			getAllProductPurchasesOfProductStmt = conn.prepareStatement("SELECT id_purchase,id_product,quantity,summary FROM ProductPurchase WHERE id_product=?");
+			getAllProductPurchasesOfPurchaseStmt = conn.prepareStatement("SELECT id_purchase,id_product,quantity,summary FROM ProductPurchase WHERE id_purchase=?");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	
+	/**
+	 * Method deleting all ProductPurchases from Database
+	 */
+	public void deleteProductPurchases(){
+		try {
+			deleteAllProductPurchasesStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * Method adding PurchaseProduct to Database
+	 * @param purchase
+	 * @return
+	 */
+	public int addProductPurchase(ProductPurchase ProductPurchase){
+		int count=0;
+		try {
+			addProductPurchaseStmt.setLong(1, ProductPurchase.getId_purchase());
+			addProductPurchaseStmt.setLong(2, ProductPurchase.getId_product());
+			addProductPurchaseStmt.setInt(3, ProductPurchase.getQuantity());
+			addProductPurchaseStmt.setDouble(4, ProductPurchase.getSummary());
+			count=addProductPurchaseStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;	
+	}
+	
+	/**
+	 * Method getting all ProductPurchases from Database
+	 * @return
+	 */
+	public List<ProductPurchase> getAllProductPurchases(){
+		ArrayList<ProductPurchase> ProductPurchases = new ArrayList<ProductPurchase>();
+		
+		try {
+			ResultSet rs = getAllProductPurchasesStmt.executeQuery();
+			while(rs.next()){
+				ProductPurchase ProductPurchase = new ProductPurchase();
+				ProductPurchase.setId_purchase(rs.getLong("id_purchase"));
+				ProductPurchase.setId_product(rs.getLong("id_product"));
+				ProductPurchase.setQuantity(rs.getInt("quantity"));
+				ProductPurchase.setSummary(rs.getDouble("summary"));
+				ProductPurchases.add(ProductPurchase);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return ProductPurchases;
+	}
 	
 	
 }
