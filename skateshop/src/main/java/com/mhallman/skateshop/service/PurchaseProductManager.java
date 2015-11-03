@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mhallman.skateshop.domain.ProductPurchase;
-import com.mhallman.skateshop.domain.Purchase;
 
 public class PurchaseProductManager {
 
@@ -18,7 +17,6 @@ public class PurchaseProductManager {
 	 * Initialization of variables used in ProductPurchaseManager class
 	 */
 	private PreparedStatement addProductPurchaseStmt;
-	private PreparedStatement deleteProductPurchaseStmt;
 	private PreparedStatement deleteAllProductPurchasesStmt;
 	private PreparedStatement deleteAllProductPurchasesOfProductStmt;
 	private PreparedStatement deleteAllProductPurchasesOfPurchaseStmt;
@@ -77,7 +75,6 @@ public class PurchaseProductManager {
 		}
 	}
 	
-	
 	/**
 	 * Method deleting all ProductPurchases from Database
 	 */
@@ -90,6 +87,32 @@ public class PurchaseProductManager {
 		}
 	}
 	
+	
+	/**
+	 * Method deleting all ProductPurchasesOfProduct from Database
+	 */
+	public void deleteProductPurchasesOfProduct(long id_product){
+		try {
+			deleteAllProductPurchasesOfProductStmt.setLong(1, id_product);
+			deleteAllProductPurchasesOfProductStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Method deleting all ProductPurchasesOfPurchase from Database
+	 */
+	public void deleteProductPurchasesOfPurchase(long id_purchase){
+		try {
+			deleteAllProductPurchasesOfPurchaseStmt.setLong(1, id_purchase);
+			deleteAllProductPurchasesOfPurchaseStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Method adding PurchaseProduct to Database
@@ -132,6 +155,54 @@ public class PurchaseProductManager {
 			e.printStackTrace();
 		}
 		return ProductPurchases;
+	}
+	
+	/**
+	 * Method getting all ProductPurchasesOfProduct from Database 
+	 * @return
+	 */
+	public List<ProductPurchase> getAllProductPurchasesOfProduct(long id_product){
+		ArrayList<ProductPurchase> ProductPurchasesOfProduct = new ArrayList<ProductPurchase>();
+		
+		try {
+			getAllProductPurchasesOfProductStmt.setLong(1, id_product);
+			ResultSet rs = getAllProductPurchasesOfProductStmt.executeQuery();
+			while(rs.next()){
+				ProductPurchase ProductPurchase = new ProductPurchase();
+				ProductPurchase.setId_purchase(rs.getLong("id_purchase"));
+				ProductPurchase.setId_product(id_product);
+				ProductPurchase.setQuantity(rs.getInt("quantity"));
+				ProductPurchase.setSummary(rs.getDouble("summary"));
+				ProductPurchasesOfProduct.add(ProductPurchase);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return ProductPurchasesOfProduct;
+	}
+	
+	/**
+	 * Method getting all ProductPurchasesOfPurchase from Database 
+	 * @return
+	 */
+	public List<ProductPurchase> getAllProductPurchasesOfPurchase(long id_purchase){
+		ArrayList<ProductPurchase> ProductPurchasesOfPurchase = new ArrayList<ProductPurchase>();
+		
+		try {
+			getAllProductPurchasesOfPurchaseStmt.setLong(1, id_purchase);
+			ResultSet rs = getAllProductPurchasesOfPurchaseStmt.executeQuery();
+			while(rs.next()){
+				ProductPurchase ProductPurchase = new ProductPurchase();
+				ProductPurchase.setId_purchase(rs.getLong("id_purchase"));
+				ProductPurchase.setId_product(id_purchase);
+				ProductPurchase.setQuantity(rs.getInt("quantity"));
+				ProductPurchase.setSummary(rs.getDouble("summary"));
+				ProductPurchasesOfPurchase.add(ProductPurchase);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return ProductPurchasesOfPurchase;
 	}
 	
 	
