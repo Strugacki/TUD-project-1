@@ -12,6 +12,7 @@ public class ClientManagerTest {
 
 	ClientManager cm = new ClientManager();
 	private final static String FIRST_NAME="Adam";
+	private final static String NEW_FIRST_NAME="Mirek";
 	private final static String SECOND_NAME="Kowalski";
 	private final long PHONE_NUMBER=782694466;
 	
@@ -27,6 +28,18 @@ public class ClientManagerTest {
 		assertEquals(FIRST_NAME,addedClient.getFirst_name());
 		assertEquals(SECOND_NAME,addedClient.getSecond_name());
 		assertEquals(PHONE_NUMBER,addedClient.getPhone_number());
+	}
+	
+	@Test
+	public void checkUpdatingClients(){
+		int updated=0;
+		cm.deleteClients();
+		Client client = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
+		cm.addClient(client);
+		List<Client> Clients = cm.getAllClients();
+		updated=cm.updateClient(NEW_FIRST_NAME, Clients.get(0).getId_client());
+		assertEquals(1,updated);
+		
 	}
 	
 	@Test

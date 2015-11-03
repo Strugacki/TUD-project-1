@@ -17,6 +17,7 @@ public class PurchaseManager {
 	 * Initialization of variables used in PurchaseManager class
 	 */
 	private PreparedStatement addPurchaseStmt;
+	private PreparedStatement updatePurchasesStmt;
 	private PreparedStatement deletePurchaseStmt;
 	private PreparedStatement deleteAllPurchasesStmt;
 	private PreparedStatement deleteAllPurchasesOfClientStmt;
@@ -58,6 +59,7 @@ public class PurchaseManager {
 			}
 
 			addPurchaseStmt = conn.prepareStatement("INSERT INTO Purchase (id_client,date) VALUES (?, ?)");
+			updatePurchasesStmt = conn.prepareStatement("UPDATE Purchase SET date=? WHERE id_client= ?");
 			deletePurchaseStmt = conn.prepareStatement("DELETE FROM Purchase WHERE id_client= ?");
 			deleteAllPurchasesStmt = conn.prepareStatement("DELETE FROM Purchase");
 			deleteAllPurchasesOfClientStmt = conn.prepareStatement("DELETE FROM Purchase WHERE id_client=?");
@@ -80,6 +82,27 @@ public class PurchaseManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	/**
+	 * Method updating Purchase or Purchases in Database
+	 * @param date
+	 * @param id_client
+	 * @return
+	 */
+	public int updatePurchases(String date, long id_client){
+		int count=0;
+		
+		try {
+			updatePurchasesStmt.setString(1, date);
+			updatePurchasesStmt.setLong(2, id_client);
+			count=updatePurchasesStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 	
 	/**

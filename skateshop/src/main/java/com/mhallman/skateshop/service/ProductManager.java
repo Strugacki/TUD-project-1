@@ -17,6 +17,7 @@ public class ProductManager {
 	 * Initialization of variables used in ProductManager class
 	 */
 	private PreparedStatement addProductStmt;
+	private PreparedStatement updateProductStmt;
 	private PreparedStatement deleteAllProductsStmt;
 	private PreparedStatement getAllProductsStmt;
 	private dbConnect dbconn = new dbConnect();
@@ -50,6 +51,7 @@ public class ProductManager {
 			}
 
 			addProductStmt = conn.prepareStatement("INSERT INTO Product (product_name,brand_name,price) VALUES (?, ?, ?)");
+			updateProductStmt = conn.prepareStatement("UPDATE Product SET price="+"?"+"WHERE brand_name=?");
 			deleteAllProductsStmt = conn.prepareStatement("DELETE FROM Product");
 			getAllProductsStmt = conn.prepareStatement("SELECT id_product, product_name,brand_name, price FROM Product");
 
@@ -90,6 +92,25 @@ public class ProductManager {
 			e.printStackTrace();
 		}
 		return count;	
+	}
+	
+	/**
+	 * Method updating Product or Products in Database
+	 * @param price
+	 * @param brand_name
+	 * @return
+	 */
+	public int updateProduct(double price, String brand_name){
+		int count=0;
+		
+		try{
+			updateProductStmt.setDouble(1, price);
+			updateProductStmt.setString(2, brand_name);
+			count=updateProductStmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return count;
 	}
 	
 	/**

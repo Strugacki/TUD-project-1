@@ -17,6 +17,7 @@ public class ClientManager {
 	 * Initialization of variables used in ClientManager class
 	 */
 	private PreparedStatement addClientStmt;
+	private PreparedStatement updateClientStmt;
 	private PreparedStatement deleteClientStmt;
 	private PreparedStatement deleteAllClientsStmt;
 	private PreparedStatement getAllClientsStmt;
@@ -50,6 +51,7 @@ public class ClientManager {
 			}
 
 			addClientStmt = conn.prepareStatement("INSERT INTO Client (first_name,second_name,phone_number) VALUES (?, ?, ?)");
+			updateClientStmt = conn.prepareStatement("UPDATE CLIENT SET first_name="+"?"+" WHERE id_client=?");
 			deleteClientStmt = conn.prepareStatement("DELETE FROM Client WHERE id_client= ?");
 			deleteAllClientsStmt = conn.prepareStatement("DELETE FROM Client");
 			getAllClientsStmt = conn.prepareStatement("SELECT id_client, first_name,second_name, phone_number FROM Client");
@@ -70,6 +72,26 @@ public class ClientManager {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Method updating Client or Clients in Database
+	 * @param first_name
+	 * @param id_client
+	 * @return
+	 */
+	public int updateClient(String first_name, long id_client){
+		int count=0;
+		try {
+			updateClientStmt.setString(1, first_name);
+			updateClientStmt.setLong(2, id_client);
+			count=updateClientStmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 	
 	/**
 	 * Method adding Clients to Database

@@ -16,6 +16,7 @@ public class PurchaseManagerTest {
 	private ClientManager cm = new ClientManager();
 	private PurchaseManager pm = new PurchaseManager();
 	private final static String DATE="06-10-1994";
+	private final static String NEW_DATE="06-11-2015";
 	private final static String FIRST_NAME="Adam";
 	private final static String SECOND_NAME="Kowalski";
 	private final long PHONE_NUMBER=782694466;
@@ -38,6 +39,26 @@ public class PurchaseManagerTest {
 		addedPurchase = Purchases.get(0);
 		assertEquals(Clients.get(0).getId_client(),addedPurchase.getId_client());
 		assertEquals(DATE,addedPurchase.getDate());
+	}
+	
+	
+	
+	@Test
+	public void checkUpdatingTest(){
+		cm.deleteClients();
+		pm.deletePurchases();
+		Client client = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
+		cm.addClient(client);
+		Client client2 = new Client(FIRST_NAME2,SECOND_NAME2,PHONE_NUMBER2);
+		cm.addClient(client2);
+		List<Client> Clients = cm.getAllClients();
+		Purchase purchase = new Purchase(Clients.get(0).getId_client(),DATE);
+		pm.addPurchase(purchase);
+		Purchase purchase2 = new Purchase(Clients.get(1).getId_client(),DATE);
+		pm.addPurchase(purchase2);
+		Purchase purchase3 = new Purchase(Clients.get(0).getId_client(),DATE);
+		pm.addPurchase(purchase3);
+		assertEquals(2,pm.updatePurchases(NEW_DATE, Clients.get(0).getId_client()));
 	}
 	
 	@Test
