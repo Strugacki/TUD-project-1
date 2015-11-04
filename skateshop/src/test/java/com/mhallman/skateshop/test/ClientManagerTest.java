@@ -15,6 +15,8 @@ public class ClientManagerTest {
 	private final static String NEW_FIRST_NAME="Mirek";
 	private final static String SECOND_NAME="Kowalski";
 	private final long PHONE_NUMBER=782694466;
+	private final long PHONE_NUMBER2=782694123;
+	private final long PHONE_NUMBER3=782694321;
 	
 	@Test
 	public void checkAdding(){
@@ -39,6 +41,23 @@ public class ClientManagerTest {
 		List<Client> Clients = cm.getAllClients();
 		updated=cm.updateClient(NEW_FIRST_NAME, Clients.get(0));
 		assertEquals(1,updated);
+		
+	}
+	
+	@Test
+	public void checkDeletingOneClient(){
+		cm.deleteClients();
+		Client client = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
+		cm.addClient(client);
+		Client client2 = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER2);
+		cm.addClient(client2);
+		Client client3 = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER3);
+		cm.addClient(client3);
+		List<Client> ClientsBeforeDeleting = cm.getAllClients();
+		cm.deleteClient(ClientsBeforeDeleting.get(0));
+		List<Client> ClientsAfterDeleting = cm.getAllClients();
+		assertEquals(2,ClientsAfterDeleting.size());
+		assertNotSame(ClientsBeforeDeleting.get(0).getPhone_number(),ClientsAfterDeleting.get(0).getPhone_number());
 		
 	}
 	
