@@ -58,7 +58,7 @@ public class PurchaseManagerTest {
 		pm.addPurchase(purchase2);
 		Purchase purchase3 = new Purchase(Clients.get(0).getId_client(),DATE);
 		pm.addPurchase(purchase3);
-		assertEquals(2,pm.updatePurchases(NEW_DATE, Clients.get(0).getId_client()));
+		assertEquals(2,pm.updatePurchases(NEW_DATE, Clients.get(0)));
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class PurchaseManagerTest {
 		pm.addPurchase(purchase2);
 		Purchase purchase3 = new Purchase(Clients.get(0).getId_client(),DATE);
 		pm.addPurchase(purchase3);
-		pm.deletePurchase(Clients.get(0).getId_client());
+		pm.deletePurchase(Clients.get(0));
 		List<Purchase> Purchases = pm.getAllPurchases();
 		assertEquals(1,Purchases.size());
 		
@@ -128,7 +128,7 @@ public class PurchaseManagerTest {
 		pm.addPurchase(purchase2);
 		Purchase purchase3 = new Purchase(Clients.get(0).getId_client(),DATE);
 		pm.addPurchase(purchase3);
-		List<Purchase> Purchases = pm.getAllPurchasesOfClient(Clients.get(0).getId_client());
+		List<Purchase> Purchases = pm.getAllPurchasesOfClient(Clients.get(0));
 		assertEquals(2,Purchases.size());
 	}
 	

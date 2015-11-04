@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mhallman.skateshop.domain.Client;
 import com.mhallman.skateshop.domain.Purchase;
 
 public class PurchaseManager {
@@ -91,12 +92,12 @@ public class PurchaseManager {
 	 * @param id_client
 	 * @return
 	 */
-	public int updatePurchases(String date, long id_client){
+	public int updatePurchases(String date, Client client){
 		int count=0;
 		
 		try {
 			updatePurchasesStmt.setString(1, date);
-			updatePurchasesStmt.setLong(2, id_client);
+			updatePurchasesStmt.setLong(2, client.getId_client());
 			count=updatePurchasesStmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -109,9 +110,9 @@ public class PurchaseManager {
 	 * Method deleting Purchases done by specific Client from Database
 	 * @param id_client
 	 */
-	public void deletePurchase(long id_client){
+	public void deletePurchase(Client client){
 		try {
-			deletePurchaseStmt.setLong(1, id_client);
+			deletePurchaseStmt.setLong(1, client.getId_client());
 			deletePurchaseStmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -122,9 +123,9 @@ public class PurchaseManager {
 	/**
 	 * 
 	 */
-	public void deletePurchasesOfClient(long id_client){
+	public void deletePurchasesOfClient(Client client){
 		try {
-			deleteAllPurchasesOfClientStmt.setLong(1, id_client);
+			deleteAllPurchasesOfClientStmt.setLong(1, client.getId_client());
 			deleteAllPurchasesOfClientStmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -179,15 +180,15 @@ public class PurchaseManager {
 	 * @param id_client
 	 * @return
 	 */
-	public List<Purchase> getAllPurchasesOfClient(long id_client){
+	public List<Purchase> getAllPurchasesOfClient(Client client){
 		ArrayList<Purchase> Purchases = new ArrayList<Purchase>();
 		try {
-			getAllPurchasesOfClientStmt.setLong(1, id_client);
+			getAllPurchasesOfClientStmt.setLong(1, client.getId_client());
 			ResultSet rs = getAllPurchasesOfClientStmt.executeQuery();
 			while(rs.next()){
 				Purchase purchase = new Purchase();
 				purchase.setId_purchase(rs.getLong("id_purchase"));
-				purchase.setId_client(id_client);
+				purchase.setId_client(client.getId_client());
 				purchase.setDate(rs.getString("date"));
 				Purchases.add(purchase);
 			}

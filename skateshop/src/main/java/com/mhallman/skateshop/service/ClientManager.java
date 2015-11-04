@@ -79,11 +79,11 @@ public class ClientManager {
 	 * @param id_client
 	 * @return
 	 */
-	public int updateClient(String first_name, long id_client){
+	public int updateClient(String first_name, Client client){
 		int count=0;
 		try {
 			updateClientStmt.setString(1, first_name);
-			updateClientStmt.setLong(2, id_client);
+			updateClientStmt.setLong(2, client.getId_client());
 			count=updateClientStmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -116,10 +116,10 @@ public class ClientManager {
 	 * Method deleting specific Client from Database
 	 * @param id_client
 	 */
-	public void deleteClient(long id_client){
+	public void deleteClient(Client client){
 		
 		try {
-			deleteClientStmt.setLong(1, id_client);
+			deleteClientStmt.setLong(1, client.getId_client());
 			deleteClientStmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

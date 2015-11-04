@@ -37,7 +37,7 @@ public class ClientManagerTest {
 		Client client = new Client(FIRST_NAME,SECOND_NAME,PHONE_NUMBER);
 		cm.addClient(client);
 		List<Client> Clients = cm.getAllClients();
-		updated=cm.updateClient(NEW_FIRST_NAME, Clients.get(0).getId_client());
+		updated=cm.updateClient(NEW_FIRST_NAME, Clients.get(0));
 		assertEquals(1,updated);
 		
 	}
